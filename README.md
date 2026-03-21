@@ -74,6 +74,137 @@ This architecture supports two distinct on-device storage strategies, unified se
 
 *Check out `app/(tabs)/four.tsx` (Tab Four) for a beautiful, live mock demonstrating and querying from both internal storage mechanisms side-by-side.*
 
+## 🔤 Custom Fonts (Google Fonts via `@expo-google-fonts`)
+
+Fonts are loaded at the native layer via **`expo-font`** before the splash screen is dismissed, guaranteeing zero flash of unstyled text. Google Fonts are consumed through the **`@expo-google-fonts`** package family — fonts ship as bundled `.ttf` assets with no network requests at runtime.
+
+This boilerplate ships with **Pathway Extreme** as a working reference implementation. The system is designed so that swapping the brand font touches exactly four files and nothing else.
+
+### Architecture overview
+
+The font system is split across four layers, each with a single responsibility:
+
+| Layer | File | Responsibility |
+|---|---|---|
+| 1. Registration | `app/_layout.tsx` | Loads `.ttf` assets before the app renders |
+| 2. Constants | `constants/fonts.ts` | Single source of truth for font family name strings |
+| 3. In-app text | `components/Text.tsx` | Branded drop-in for RN's `<Text>` — applies the brand font by default |
+| 4. Navigation UI | `app/_layout.tsx` + `app/(tabs)/_layout.tsx` | Applies the font to headers and tab bar labels via `screenOptions` |
+
+### Why React Native needs this approach
+
+Unlike CSS, `fontFamily` in React Native does **not** cascade. Setting it on a parent `<View>` has no effect on child `<Text>` nodes. Every text surface must be set explicitly — which is exactly what this system handles for you.
+
+### Layer 1 — Font registration (`app/_layout.tsx`)
+
+Import only the weights you need (each unused variant adds ~50–100 KB to the bundle) and pass them to `useFonts`. The splash screen stays visible until all assets are ready.
+
+```ts
+import {
+  PathwayExtreme_400Regular,
+  PathwayExtreme_500Medium,
+  PathwayExtreme_600SemiBold,
+  PathwayExtreme_700Bold,
+} from '@expo-google-fonts/pathway-extreme';
+
+const [loaded, error] = useFonts({
+  PathwayExtreme_400Regular,
+  PathwayExtreme_500Medium,
+  PathwayExtreme_600SemiBold,
+  PathwayExtreme_700Bold,
+});
+```
+
+### Layer 2 — Font constants (`constants/fonts.ts`)
+
+A single file exports the font family name strings. This is the **only place** you change when swapping the brand font — everything else reads from here.
+
+```ts
+export const FONT_REGULAR  = 'PathwayExtreme_400Regular';
+export const FONT_MEDIUM   = 'PathwayExtreme_500Medium';
+export const FONT_SEMIBOLD = 'PathwayExtreme_600SemiBold';
+export const FONT_BOLD     = 'PathwayExtreme_700Bold';
+```
+
+### Layer 3 — Branded Text component (`components/Text.tsx`)
+
+`tailwind.config.js` maps Tailwind's `sans` key (the default font stack) to `PathwayExtreme_400Regular`:
+
+```js
+fontFamily: {
+  sans: ['PathwayExtreme_400Regular'], // font-sans = brand font
+  'pathway-medium':    ['PathwayExtreme_500Medium'],
+  'pathway-semibold':  ['PathwayExtreme_600SemiBold'],
+  'pathway-bold':      ['PathwayExtreme_700Bold'],
+  // ... other weights
+}
+```
+
+`components/Text.tsx` is a drop-in replacement for React Native's `<Text>` that prepends `font-sans` automatically:
+
+```tsx
+export function Text({ className = '', ...props }: TextProps) {
+  return <RNText className={`font-sans ${className}`} {...props} />;
+}
+```
+
+**Always import `Text` from `@/components/Text`, never from `react-native` directly:**
+
+```tsx
+import { Text } from '@/components/Text';
+
+<Text>Body copy — brand font applied automatically</Text>
+<Text className="font-pathway-semibold text-xl">Section heading</Text>
+<Text className="font-pathway-bold text-3xl">Display heading</Text>
+```
+
+### Layer 4 — Navigation surfaces (`screenOptions`)
+
+React Navigation renders headers and tab bar labels outside React's component tree — the custom `<Text>` component can't reach them. They are covered via `screenOptions` in the navigator layouts, reading from `constants/fonts.ts`:
+
+```ts
+// app/(tabs)/_layout.tsx
+screenOptions={{
+  tabBarLabelStyle:  { fontFamily: FONT_MEDIUM },
+  headerTitleStyle:  { fontFamily: FONT_SEMIBOLD },
+}}
+
+// app/_layout.tsx (covers the modal header)
+<Stack screenOptions={{ headerTitleStyle: { fontFamily: FONT_SEMIBOLD } }}>
+```
+
+### Every text surface covered
+
+| Surface | Covered by |
+|---|---|
+| In-app `<Text>` | `components/Text.tsx` → `font-sans` |
+| Screen / modal headers | `headerTitleStyle` in `screenOptions` |
+| Bottom tab bar labels | `tabBarLabelStyle` in `screenOptions` |
+
+### Available weight utilities
+
+| Class | Weight | Style |
+|---|---|---|
+| *(default — no class needed)* | 400 Regular | Normal |
+| `font-pathway-italic` | 400 Regular | Italic |
+| `font-pathway-medium` | 500 Medium | Normal |
+| `font-pathway-semibold` | 600 SemiBold | Normal |
+| `font-pathway-bold` | 700 Bold | Normal |
+| `font-pathway-bold-italic` | 700 Bold | Italic |
+| `font-pathway-extrabold` | 800 ExtraBold | Normal |
+| `font-pathway-black` | 900 Black | Normal |
+
+### Swapping the brand font
+
+1. Install the new `@expo-google-fonts/<font-name>` package.
+2. Replace the imports and `useFonts` entries in `app/_layout.tsx`.
+3. Update the exports in `constants/fonts.ts`.
+4. Update `fontFamily.sans` (and other weight keys) in `tailwind.config.js`.
+
+Restart with `npx expo start -c` to clear the Metro and NativeWind cache. Nothing in your screen files needs to change.
+
+---
+
 ## 🔐 Environment Variables
 
 All runtime configuration is centralised in **`config/env.ts`**, which uses **Zod** to parse and validate every variable at startup. If a required variable is missing or malformed the app will throw immediately (fail-fast), preventing silent misconfiguration bugs.

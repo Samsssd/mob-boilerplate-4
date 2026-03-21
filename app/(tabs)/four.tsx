@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { View, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { Text } from '@/components/Text';
 import { StorageHelpers } from '@/utils/storage';
 import { FontAwesome } from '@expo/vector-icons';
 

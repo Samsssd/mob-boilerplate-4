@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, FlatList, ActivityIndicator, Image, TouchableOpacity } from 'react-native';
+import { View, FlatList, ActivityIndicator, Image, TouchableOpacity } from 'react-native';
+import { Text } from '@/components/Text';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { FontAwesome } from '@expo/vector-icons';

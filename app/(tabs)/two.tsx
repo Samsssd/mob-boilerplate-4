@@ -1,7 +1,8 @@
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, Alert } from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import React from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { Alert, KeyboardAvoidingView, Platform, ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
+import { Text } from '@/components/Text';
 import * as z from 'zod';
 
 const formSchema = z.object({
@@ -24,14 +25,14 @@ export default function TabTwoScreen() {
   };
 
   return (
-    <KeyboardAvoidingView 
+    <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       className="flex-1 bg-white dark:bg-neutral-900"
     >
       <ScrollView contentContainerClassName="p-6 pb-12">
-        <Text className="text-3xl font-extrabold text-neutral-900 dark:text-white mb-2">Edit Profile</Text>
+        <Text className="text-3xl text-neutral-900 dark:text-white mb-2">Edit Profile</Text>
         <Text className="text-base text-neutral-500 dark:text-neutral-400 mb-8 mt-1">Update your personal details here.</Text>
-        
+
         <View className="flex flex-col gap-6">
           {/* Username */}
           <View>
@@ -99,7 +100,7 @@ export default function TabTwoScreen() {
           </View>
 
           {/* Submit Button */}
-          <TouchableOpacity 
+          <TouchableOpacity
             className="w-full bg-blue-600 active:bg-blue-700 rounded-xl py-4 items-center shadow-sm mt-2"
             onPress={handleSubmit(onSubmit)}
           >

@@ -6,6 +6,7 @@ import { Pressable } from 'react-native';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 import { useColorScheme } from '@/components/useColorScheme';
 import Colors from '@/constants/Colors';
+import { FONT_MEDIUM, FONT_SEMIBOLD } from '@/constants/fonts';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -14,6 +15,8 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarLabelStyle: { fontFamily: FONT_MEDIUM },
+        headerTitleStyle: { fontFamily: FONT_SEMIBOLD },
         // Disable the static render of the header on web
         // to prevent a hydration error in React Navigation v6.
         headerShown: useClientOnlyValue(false, true),
