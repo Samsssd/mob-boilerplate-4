@@ -17,9 +17,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme].tint,
         tabBarLabelStyle: { fontFamily: FONT_MEDIUM },
         headerTitleStyle: { fontFamily: FONT_SEMIBOLD },
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
+        headerShown: false,
       }}>
       <Tabs.Screen
         name="index"
