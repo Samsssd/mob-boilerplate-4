@@ -1252,10 +1252,80 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@expo-google-fonts/bricolage-grotesque@npm:^0.4.1":
+  version: 0.4.1
+  resolution: "@expo-google-fonts/bricolage-grotesque@npm:0.4.1"
+  checksum: e230301ed62f9e4b2ba1cd984841f5d64225012aec6ba685efa907829644c36084c301d5a9699670457e6094af2737eb890736672566c35ac39267d89b9f51d0
+  languageName: node
+  linkType: hard
+
+"@expo-google-fonts/dm-sans@npm:^0.4.2":
+  version: 0.4.2
+  resolution: "@expo-google-fonts/dm-sans@npm:0.4.2"
+  checksum: d02e7bebb896b5de6758019c3f178d73aa4ff165fb59f966589a3acc8912cef524a3b5e3231ef11a224020cb8aa0abfa666a589e06afe7ed79856c8355be1eec
+  languageName: node
+  linkType: hard
+
+"@expo-google-fonts/figtree@npm:^0.4.1":
+  version: 0.4.1
+  resolution: "@expo-google-fonts/figtree@npm:0.4.1"
+  checksum: 7c29c821f558d16f9a4f8cbf76ee97cd6c488325ae42d4eb40ff1e23af1e09869c86c21731b8dac43d0fc4c3bf6dcf4de7237930f59268314dd398b92e4d829c
+  languageName: node
+  linkType: hard
+
+"@expo-google-fonts/hanken-grotesk@npm:^0.4.3":
+  version: 0.4.3
+  resolution: "@expo-google-fonts/hanken-grotesk@npm:0.4.3"
+  checksum: e024c8ef09c29b4c2255e83d24216a81839122a783a62673de6acaa3c4b2c79f0f7eaa24b0fd69a7aeda9f197fb0b96ddd9ac503cc653918f5f2cda40918d6ad
+  languageName: node
+  linkType: hard
+
+"@expo-google-fonts/inter@npm:^0.4.2":
+  version: 0.4.2
+  resolution: "@expo-google-fonts/inter@npm:0.4.2"
+  checksum: 3a8ea9cc3e3f0968bbd615f28a454ffd2bb0540a513ad64e0b7fa2f1b2b310d09ba1b9ad675ed5d5a9f4dc3210fa466bcd828395e527b1ddf373ce205dcbaf42
+  languageName: node
+  linkType: hard
+
+"@expo-google-fonts/manrope@npm:^0.4.2":
+  version: 0.4.2
+  resolution: "@expo-google-fonts/manrope@npm:0.4.2"
+  checksum: 0037e92cd41dac08f5ee1049327f211ba69e429995cd4af9759dc3e78dc71db8103913dd044f26f5993fc447d4587c1d25e7d284596782faf7433079fff1a5ee
+  languageName: node
+  linkType: hard
+
+"@expo-google-fonts/outfit@npm:^0.4.3":
+  version: 0.4.3
+  resolution: "@expo-google-fonts/outfit@npm:0.4.3"
+  checksum: 74b7889b06d2ddedce3444a54673727c5037b6dadc6d276b06c0bba45eed1e58d1d000ad5921b47b4527bf1faa2a53721dde72b4e827c4cf769ccc5c8207cda6
+  languageName: node
+  linkType: hard
+
 "@expo-google-fonts/pathway-extreme@npm:^0.4.2":
   version: 0.4.2
   resolution: "@expo-google-fonts/pathway-extreme@npm:0.4.2"
   checksum: 994a4cf07a98426d9cbf38982f5be834ab00ca952ad2b715f3ec5476a3342ae6abb63cd71e700e49640b74b68f9fcc478d8727259661290605f4438c42ed9a75
+  languageName: node
+  linkType: hard
+
+"@expo-google-fonts/plus-jakarta-sans@npm:^0.4.2":
+  version: 0.4.2
+  resolution: "@expo-google-fonts/plus-jakarta-sans@npm:0.4.2"
+  checksum: b7436a1e8881e33bcfa68a067d3bec8b6e4d6237192dd2d469078d122e18a762fbe38ec6eece69c5cbbdd11e5fe7721e97a1a08dba969e2f6d5e0c0276b8f6a5
+  languageName: node
+  linkType: hard
+
+"@expo-google-fonts/sora@npm:^0.4.2":
+  version: 0.4.2
+  resolution: "@expo-google-fonts/sora@npm:0.4.2"
+  checksum: 592c432e9d1699a6b5f6292a08cc6a639c578e6d1edbe9b2fc8c59b53435dca216a8d0a3c62389b5be43919a7b1424b1684b82edb7d0a2ddd4bddb53101e0056
+  languageName: node
+  linkType: hard
+
+"@expo-google-fonts/space-grotesk@npm:^0.4.1":
+  version: 0.4.1
+  resolution: "@expo-google-fonts/space-grotesk@npm:0.4.1"
+  checksum: b56343248f1acf252acc29820662c01c4bd889618f939d315c3d87b1220429e76a6fefd18e2e6aca9b0ae17ecf7140486a454670ea1f06e382bea3b06e827c75
   languageName: node
   linkType: hard
 
@@ -4505,7 +4575,17 @@ __metadata:
   resolution: "boilerplate-4auth@workspace:."
   dependencies:
     "@clerk/expo": ^3.5.2
+    "@expo-google-fonts/bricolage-grotesque": ^0.4.1
+    "@expo-google-fonts/dm-sans": ^0.4.2
+    "@expo-google-fonts/figtree": ^0.4.1
+    "@expo-google-fonts/hanken-grotesk": ^0.4.3
+    "@expo-google-fonts/inter": ^0.4.2
+    "@expo-google-fonts/manrope": ^0.4.2
+    "@expo-google-fonts/outfit": ^0.4.3
     "@expo-google-fonts/pathway-extreme": ^0.4.2
+    "@expo-google-fonts/plus-jakarta-sans": ^0.4.2
+    "@expo-google-fonts/sora": ^0.4.2
+    "@expo-google-fonts/space-grotesk": ^0.4.1
     "@hookform/resolvers": ^5.2.2
     "@react-native-async-storage/async-storage": 2.2.0
     "@react-navigation/native": ^7.1.8

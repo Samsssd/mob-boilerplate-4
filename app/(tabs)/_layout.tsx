@@ -1,13 +1,13 @@
-import { Link, Tabs } from 'expo-router';
+import { Tabs } from 'expo-router';
 import { FontAwesome } from '@expo/vector-icons';
 import React from 'react';
-import { Pressable } from 'react-native';
 
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 import { useColorScheme } from '@/components/useColorScheme';
 import Colors from '@/constants/Colors';
 import { FONT_MEDIUM, FONT_SEMIBOLD } from '@/constants/fonts';
 
+// Single starter tab. Add more <Tabs.Screen> entries (one per file you create in
+// this (tabs) folder) for each top-level destination your app needs.
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
@@ -24,41 +24,6 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => <FontAwesome name="home" size={28} color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable style={{ marginRight: 15 }}>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme].text}
-                    style={{ opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="two"
-        options={{
-          title: 'Search',
-          tabBarIcon: ({ color }) => <FontAwesome name="search" size={28} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="three"
-        options={{
-          title: 'Favorites',
-          tabBarIcon: ({ color }) => <FontAwesome name="heart" size={28} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="four"
-        options={{
-          title: 'Profile',
-          tabBarIcon: ({ color }) => <FontAwesome name="user" size={28} color={color} />,
         }}
       />
     </Tabs>
