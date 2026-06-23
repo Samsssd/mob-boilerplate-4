@@ -274,4 +274,42 @@ The exported `env` object is fully typed via `z.infer<typeof envSchema>`, so you
    Scan the generated QR code using the **Expo Go** app on your real device, or press `i` / `a` in the terminal to launch on an iOS Simulator or Android Emulator.
 
 ---
+
+## ☁️ Remote Deploy via EAS Update (GitHub API)
+
+The [`.github/workflows/eas-update.yml`](.github/workflows/eas-update.yml) workflow
+publishes an **EAS Update** to the `preview` branch so the latest JS bundle is
+shareable by link/QR. It is **only** triggered programmatically through the GitHub
+REST API (`workflow_dispatch`).
+
+The workflow **provisions the EAS project itself** on first run — it names the
+project after the GitHub repo (via [`scripts/eas-set-name.mjs`](scripts/eas-set-name.mjs))
+and runs `eas init`, so this boilerplate works under any repo name with no manual
+`projectId` wiring.
+
+### One-time setup
+
+1. Create an Expo access token: **Expo dashboard → Account Settings → Access Tokens**.
+2. Add it to the GitHub repo as a secret named **`EXPO_TOKEN`**
+   (*Settings → Secrets and variables → Actions → New repository secret*).
+3. Push this repo so the workflow exists on the **default branch** (required for the
+   dispatch API to see it).
+
+### Trigger it via the API
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer <GITHUB_PAT_WITH_workflow_SCOPE>" \
+  -H "Accept: application/vnd.github+json" \
+  https://api.github.com/repos/<owner>/<repo>/actions/workflows/eas-update.yml/dispatches \
+  -d '{"ref":"main"}'
+```
+
+The update is published to the **`preview`** branch with the **last commit's message**.
+After it completes, grab the preview link/QR from the **EAS dashboard** (or the run
+logs). It opens directly in a **preview/development build**; opening an EAS Update in
+**Expo Go** additionally requires the project to stay Expo-Go compatible and the
+runtime versions to match.
+
+---
 *Architected with 🤍 by Excelsior Digital*

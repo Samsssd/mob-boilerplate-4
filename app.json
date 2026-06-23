@@ -4,6 +4,12 @@
     "slug": "boilerplate-4auth",
     "version": "1.0.0",
     "orientation": "portrait",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/00000000-0000-0000-0000-000000000000"
+    },
     "icon": "./assets/images/icon.png",
     "scheme": "boilerplate4auth",
     "userInterfaceStyle": "automatic",
