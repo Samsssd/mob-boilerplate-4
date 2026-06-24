@@ -292,7 +292,23 @@ and runs `eas init`, so this boilerplate works under any repo name with no manua
 1. Create an Expo access token: **Expo dashboard → Account Settings → Access Tokens**.
 2. Add it to the GitHub repo as a secret named **`EXPO_TOKEN`**
    (*Settings → Secrets and variables → Actions → New repository secret*).
-3. Push this repo so the workflow exists on the **default branch** (required for the
+3. Add your **`EXPO_PUBLIC_*`** app config as repo secrets (same names as `.env.example`).
+   These are inlined into the published bundle, so the deployed update talks to the
+   right backend/Supabase/Clerk:
+
+   | Secret | Purpose |
+   |--------|---------|
+   | `EXPO_PUBLIC_API_URL` | Backend API base URL |
+   | `EXPO_PUBLIC_SUPABASE_URL` | Supabase project URL |
+   | `EXPO_PUBLIC_SUPABASE_ANON_KEY` | Supabase publishable/anon key |
+   | `EXPO_PUBLIC_APP_ID` | App identifier from your backend |
+   | `EXPO_PUBLIC_MOBILE_API_TOKEN` | Mobile → backend API token |
+   | `EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY` | Clerk publishable key |
+
+   `EXPO_PUBLIC_ENV` is set automatically to `preview` by the workflow — no secret
+   needed. (These are all client-public values by design; they're stored as secrets
+   only to keep them out of the repo and masked in logs.)
+4. Push this repo so the workflow exists on the **default branch** (required for the
    dispatch API to see it).
 
 ### Trigger it via the API
