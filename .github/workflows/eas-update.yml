@@ -24,7 +24,9 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # Node 22: a transitive dep (via @clerk/expo web3 support) requires
+          # engine ">=22"; Node 20 fails `yarn install` at resolution.
+          node-version: 22
           cache: yarn
 
       - name: Set up EAS
@@ -34,7 +36,10 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        # Plain `yarn install` (not --frozen-lockfile): this boilerplate is cloned
+        # by users who never touch yarn, so the committed lockfile may drift from
+        # package.json. Resolve/update at install time instead of hard-failing.
+        run: yarn install
 
       # This boilerplate is renamed per project, so provision the EAS project
       # under the GitHub repo's name instead of a hardcoded slug.
